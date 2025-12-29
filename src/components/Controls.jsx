@@ -96,8 +96,6 @@ function buildFullHtml(content, padding = "20mm") {
 }
 
 
-
-
   const handleOpenHTML = () => {
   const fullHtml = buildFullHtml(html);
   const w = window.open();

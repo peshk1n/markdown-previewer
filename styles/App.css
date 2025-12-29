@@ -15,14 +15,13 @@
   box-sizing: border-box;
 }
 
-/* Рабочая область: editor + preview */
+
 .workspace {
   display: flex;
   height: 100%;
   gap: 10px;
 }
 
-/* ===== Columns ===== */
 
 .editor-column,
 .preview-column {
@@ -33,7 +32,6 @@
   min-width: 0;
 }
 
-/* ===== Editor ===== */
 
 .editor-wrapper {
   flex: 1;
@@ -42,46 +40,45 @@
   position: relative;
 }
 
-
 .editor-wrapper textarea {
   flex: 1;
   width: 100%;
   resize: none;
-  flex-direction: column;
   min-width: 0;
 }
 
+
 .cm-editor .cm-scroller {
-  overflow: auto; 
-  max-height: 100%; 
+  overflow: auto;
+  max-height: 100%;
 }
 
-/* ===== Controls ===== */
 
 .controls {
   display: flex;
   gap: 8px;
   justify-content: flex-end;
   margin-bottom: 8px;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
-/* ===== Preview ===== */
 
 .preview-wrapper {
   flex: 1;
   display: flex;
-  overflow: auto; 
+  overflow: auto;
   border-radius: 8px;
+
+  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
 }
 
 .preview {
   width: 100%;
   padding: 16px;
   box-sizing: border-box;
-
-  background-color: #1a1a1a;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #1a1a1a;
 
   border-radius: 8px;
 
@@ -90,7 +87,6 @@
   line-height: 1.6;
 }
 
-/* ===== Markdown styles ===== */
 
 .preview h1,
 .preview h2,
@@ -108,31 +104,31 @@
   padding: 12px;
   border-radius: 6px;
   overflow-x: auto;
+  background-color: #f6f8fa;
 }
 
 .preview code {
   font-family: "Fira Code", monospace;
 }
 
-/* ===== Error ===== */
 
 .error-text {
   color: red;
   margin-top: 8px;
 }
 
-/* ===== Buttons (общие) ===== */
 
 button {
   border-radius: 6px;
-  border: 1px solid transparent;
+  border: 1px solid #d0d0d0;
   padding: 0.5em 1em;
   font-size: 0.9em;
   cursor: pointer;
-  background-color: #1a1a1a;
-  color: inherit;
+  background-color: #ffffff;
+  color: #1a1a1a;
 }
 
 button:hover {
   border-color: #646cff;
+  background-color: #f0f0f0;
 }
