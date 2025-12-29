@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from '../../static/react.svg'
-import viteLogo from '../../static/vite.svg'
-import '../../styles/App.css'
+import { useEffect, useState } from 'react';
+import { Editor } from './Editor';
+import { Preview } from './Preview';
+import { Controls } from './Controls';
+import { GithubMarkdownApi } from '../api/githubMarkdownApi';
+import '../../styles/App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const api = new GithubMarkdownApi();
+
+
+export function App() {
+  const [markdown, setMarkdown] = useState('');
+  const [html, setHtml] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!markdown) {
+      setHtml('');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    const timer = setTimeout(async () => {
+      try {
+        const result = await api.render(markdown);
+        setHtml(result);
+      } catch (e) {
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    }, 500); 
+
+    return () => clearTimeout(timer);
+  }, [markdown]);
+
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+  <div className="app-container">
 
-export default App
+    <div className="workspace">
+      <div className="editor-column">
+        <Editor value={markdown} onChange={setMarkdown} />
+      </div>
+
+      <div className="preview-column">
+        <Controls markdown={markdown} html={html} />
+
+        <div className="preview-wrapper">
+          <Preview html={html} />
+          {error && <p className="error-text">{error}</p>}
+        </div>
+      </div>
+    </div>
+
+  </div>
+);
+}
